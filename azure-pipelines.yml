@@ -26,11 +26,11 @@ steps:
 
 
 - script: 'jmeter -n -t JmeterSample.jmx -l result01.jtl -e -o reports01'
-  workingDirectory: '$(System.DefaultWorkingDirectory)/_gnarala1_Jmeter_v1'
+  workingDirectory: '$(System.DefaultWorkingDirectory)/_gnarala1_Perf1'
   displayName: 'Command Line Script'
 
 
 - task: benjhuser.ReleaseArtifacts.PublishReleaseArtifact.PublishReleaseArtifact@1
-  displayName: 'Upload Release Artifact $(System.DefaultWorkingDirectory)/_gnarala1_Jmeter_v1'
+  displayName: 'Upload Release Artifact $(System.DefaultWorkingDirectory)/_gnarala1_Perf1'
   inputs:
-    artifactPath: '$(System.DefaultWorkingDirectory)/_gnarala1_Jmeter_v1'
+    artifactPath: '$(System.DefaultWorkingDirectory)/_gnarala1_Perf1'
