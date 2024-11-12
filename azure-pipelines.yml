@@ -1,0 +1,36 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    echo See https://aka.ms/yaml
+  displayName: 'Run a multi-line script'
+
+
+- task: AlexandreGattiker.jmeter-tasks.custom-jmeter-installer-task.JMeterInstaller@0
+  displayName: 'Install JMeter 5.4.2'
+  inputs:
+    jmeterVersion: 5.4.2
+
+
+- script: 'jmeter -n -t JmeterSample.jmx -l result01.jtl -e -o reports01'
+  workingDirectory: '$(System.DefaultWorkingDirectory)/_gnarala1_Jmeter_v1'
+  displayName: 'Command Line Script'
+
+
+- task: benjhuser.ReleaseArtifacts.PublishReleaseArtifact.PublishReleaseArtifact@1
+  displayName: 'Upload Release Artifact $(System.DefaultWorkingDirectory)/_gnarala1_Jmeter_v1'
+  inputs:
+    artifactPath: '$(System.DefaultWorkingDirectory)/_gnarala1_Jmeter_v1'
